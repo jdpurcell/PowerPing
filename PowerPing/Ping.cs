@@ -375,7 +375,7 @@ namespace PowerPing
 
                     // Display reply packet
                     if (ShowOutput)
-                        PowerPing.Display.ReplyPacket(response, ep.ToString(), index, responseTimer.ElapsedMilliseconds, bytesRead);
+                        PowerPing.Display.ReplyPacket(response, ep.ToString(), index, responseTimer.Elapsed, bytesRead);
 
                     // Store response info
                     Results.SetPacketType(response.type);

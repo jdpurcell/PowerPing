@@ -177,15 +177,15 @@ namespace PowerPing
         /// <param name="address">Reply address</param>
         /// <param name="index">Sequence number</param>
         /// <param name="replyTime">Time taken before reply recieved in milliseconds</param>
-        public static void ReplyPacket(ICMP packet, String address, int index, long replyTime, int bytesRead)
+        public static void ReplyPacket(ICMP packet, String address, int index, TimeSpan replyTime, int bytesRead)
         {
             // Display with no colour
             if (NoColor)
             {
                 if (Short) // Show short hand reply
-                    Console.WriteLine("Reply from: {0} type={1} time={2}ms", address, packet.type > packetTypes.Length ? "UNASSIGNED" : packetTypes[packet.type], replyTime);
+                    Console.WriteLine("Reply from: {0} type={1} time={2:0.0}ms", address, packet.type > packetTypes.Length ? "UNASSIGNED" : packetTypes[packet.type], replyTime.TotalMilliseconds);
                 else
-                    Console.WriteLine("Reply from: {0} seq={1} bytes={2} type={3} time={4}ms", address, index, bytesRead, packet.type > packetTypes.Length ? "UNASSIGNED" : packetTypes[packet.type], replyTime);
+                    Console.WriteLine("Reply from: {0} seq={1} bytes={2} type={3} time={4:0.0}ms", address, index, bytesRead, packet.type > packetTypes.Length ? "UNASSIGNED" : packetTypes[packet.type], replyTime.TotalMilliseconds);
                 return;
             }
 
@@ -223,13 +223,13 @@ namespace PowerPing
 
             // Print coloured time segment
             Console.Write(" time=");
-            if (replyTime <= 100L)
+            if (replyTime <= TimeSpan.FromMilliseconds(100))
                 Console.ForegroundColor = ConsoleColor.Green;
-            else if (replyTime <= 500L)
+            else if (replyTime <= TimeSpan.FromMilliseconds(500))
                 Console.ForegroundColor = ConsoleColor.Yellow;
-            else if (replyTime > 500L)
+            else
                 Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("{0}ms ", replyTime < 1 ? "<1" : replyTime.ToString());
+            Console.Write("{0:0.0}ms ", replyTime.TotalMilliseconds);
             ResetColor();
 
             // Display timestamp
@@ -293,7 +293,6 @@ namespace PowerPing
                 Console.Write(", Errors [ {0} ]", results.ErrorPackets);
                 Console.Write(", Unknown [ {0} ]", results.OtherPackets);
                 Console.WriteLine("Total time: {0:hh\\:mm\\:ss\\.f}", results.TotalRunTime);
-                Console.WriteLine();
             }
             else
             {
@@ -326,7 +325,6 @@ namespace PowerPing
                 Console.WriteLine("[ {0} ]", results.OtherPackets);
                 ResetColor();
                 Console.WriteLine("Total time: {0:hh\\:mm\\:ss\\.f}", results.TotalRunTime);
-                Console.WriteLine();
             }
 
             // Confirm to exit

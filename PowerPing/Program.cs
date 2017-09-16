@@ -376,7 +376,7 @@ namespace PowerPing
                                 case "3":
                                 case "polite":
                                     attributes.Timeout = 3000;
-                                    attributes.Timeout = 3000;
+                                    attributes.Interval = 3000;
                                     break;
                                 case "4":
                                 case "nimble":
@@ -406,7 +406,7 @@ namespace PowerPing
                         case "/loc":
                         case "-loc":
                         case "--loc": // Location lookup
-                            if (attributes.Address != "")
+                            if (attributes.Address == "")
                                 throw new FormatException();
                             Helper.GetAddressLocation(attributes.Address, true);
                             Environment.Exit(0);
@@ -420,7 +420,7 @@ namespace PowerPing
                         case "/g":
                         case "-g":
                         case "--g": // Graph view
-                            if (attributes.Address != "")
+                            if (attributes.Address == "")
                                 throw new FormatException();
                             g = new Graph(attributes.Address); /// Look at argument behind?
                             g.Start();
@@ -429,7 +429,7 @@ namespace PowerPing
                         case "/cg":
                         case "-cg":
                         case "--cg": // Compact graph view
-                            if (attributes.Address != "")
+                            if (attributes.Address == "")
                                 throw new FormatException();
                             g = new Graph(attributes.Address);
                             g.CompactGraph = true;
@@ -439,7 +439,7 @@ namespace PowerPing
                         case "/fl":
                         case "-fl":
                         case "--fl": // Flood
-                            if (attributes.Address != "")
+                            if (attributes.Address == "")
                                 throw new FormatException();
                             Console.CancelKeyPress += new ConsoleCancelEventHandler(ExitHandler);
                             p.Flood(attributes.Address);
