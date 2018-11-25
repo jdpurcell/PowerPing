@@ -32,4 +32,5 @@ namespace PowerPing
     public class MissingArgumentException : Exception { }
     
     // test 1
+    // test 2
 }
