@@ -30,4 +30,6 @@ namespace PowerPing
     // (used in arguments parsing)
     public class ArgumentFormatException : Exception { }
     public class MissingArgumentException : Exception { }
+    
+    // test 1
 }
