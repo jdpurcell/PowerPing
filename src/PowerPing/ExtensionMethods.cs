@@ -34,8 +34,7 @@ namespace PowerPing
         {
             try {
                 task.Wait(cancellationToken);
-            }
-            catch (AggregateException ex) when (ex.InnerExceptions.Count == 1) {
+            } catch (AggregateException ex) when (ex.InnerExceptions.Count == 1) {
                 throw ex.InnerExceptions[0];
             }
             return task.Result;

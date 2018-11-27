@@ -67,8 +67,7 @@ namespace PowerPing
             if (Display.UseResolvedAddress) {
                 try {
                     attrs.Host = Task.Run(() => Lookup.QueryHost(attrs.Address)).WaitForResult(cancellationToken);
-                }
-                catch (OperationCanceledException) {
+                } catch (OperationCanceledException) {
                     return new PingResults();
                 }
                 if (attrs.Host == "") {
@@ -226,8 +225,7 @@ namespace PowerPing
                         });
                     }
                 }
-            }
-            catch (OperationCanceledException) { }
+            } catch (OperationCanceledException) { }
 
             PowerPing.Display.ScanResults(scanned, !cancellationToken.IsCancellationRequested, activeHosts);
         }
@@ -414,8 +412,7 @@ namespace PowerPing
                         if (attrs.Timeout <= 250) {
                             // With small timeouts (e.g. flood mode), run directly for best performance
                             bytesRead = DoReceive();
-                        }
-                        else {
+                        } else {
                             // Otherwise, run via task so it can be canceled
                             bytesRead = Task.Run((Func<int>)DoReceive).WaitForResult(cancellationToken);
                         }
